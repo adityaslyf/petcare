@@ -19,28 +19,111 @@
         </nav>
     </header>
 
+    <!-- Hero Banner -->
+    <section class="page-banner">
+        <h1>Contact Us</h1>
+        <p>We're here to help with all your pet care needs</p>
+    </section>
+
     <!-- Main Content -->
-    <div class="container">
-        <h2 class="section-title">Contact Us</h2>
-        
+    <div class="container">        
         <div class="contact-container">
-            <div class="contact-form">
-                <input type="text" class="input-field" placeholder="Name">
-                <input type="email" class="input-field" placeholder="Email">
-                <input type="tel" class="input-field" placeholder="Phone">
-                <textarea class="textarea-field" placeholder="Message"></textarea>
-                <a href="#" class="btn">[Admin Alert] Submit</a>
+            <div class="contact-info-block">
+                <h2>Get In Touch</h2>
+                <div class="contact-method">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h3>Visit Us</h3>
+                        <p>123 Pet Care Street</p>
+                        <p>City, State ZIP</p>
+                    </div>
+                </div>
                 
-                <p class="gdpr-note">[GDPR Note] Your information will be stored securely and used only for responding to your inquiry.</p>
+                <div class="contact-method">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <p>(123) 456-7890</p>
+                        <p>Mon-Fri: 8am-6pm, Sat: 9am-4pm</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <p>info@petcare.com</p>
+                        <p>We'll respond within 24 hours</p>
+                    </div>
+                </div>
                 
                 <div class="contact-chat">
-                    <p>Or chat with us directly!</p>
+                    <h3>Chat with us directly!</h3>
                     <a href="#" class="whatsapp-contact">[WhatsApp] Chat on WhatsApp</a>
                 </div>
             </div>
             
+            <div class="contact-form-block">
+                <h2>Send Us a Message</h2>
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="input-field" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="pet-name">Pet's Name</label>
+                            <input type="text" id="pet-name" class="input-field" placeholder="Buddy">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="input-field" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="input-field" placeholder="(123) 456-7890">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service Interested In</label>
+                        <select id="service" class="input-field">
+                            <option value="" disabled selected>Select a service</option>
+                            <option value="vet-care">Veterinary Care</option>
+                            <option value="grooming">Pet Grooming</option>
+                            <option value="boarding">Pet Boarding</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" class="textarea-field" placeholder="Tell us how we can help..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn primary-btn">[Admin Alert] Submit Message</button>
+                    
+                    <p class="gdpr-note">[GDPR Note] Your information will be stored securely and used only for responding to your inquiry.</p>
+                </form>
+            </div>
+        </div>
+        
+        <div class="map-section">
+            <h2>Find Us</h2>
             <div class="map">
                 [Google Maps Embed]
+            </div>
+        </div>
+        
+        <div class="emergency-contact">
+            <div class="emergency-icon">🚨</div>
+            <div class="emergency-details">
+                <h3>Pet Emergency?</h3>
+                <p>Call our 24/7 emergency line: <strong>(123) 555-9999</strong></p>
+                <a href="#" class="btn secondary-btn">Emergency Care Info</a>
             </div>
         </div>
         
@@ -49,17 +132,33 @@
 
     <!-- Footer -->
     <footer>
-        <div class="contact-info">
-            <p>123 Pet Care Street, City, State ZIP</p>
-            <p>Phone: (123) 456-7890</p>
-            <p>Email: info@petcare.com</p>
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>123 Pet Care Street, City, State ZIP</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Email: info@petcare.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <p>Monday - Friday: 8am - 6pm</p>
+                <p>Saturday: 9am - 4pm</p>
+                <p>Sunday: Closed</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <div class="social-icon">FB</div>
+                    <div class="social-icon">IG</div>
+                    <div class="social-icon">YT</div>
+                </div>
+                <div class="whatsapp-button">[WhatsApp]</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Pet Care Services. All rights reserved.</p>
             <p class="admin-login">[Admin Login]</p>
             <p>[Blog Link]</p>
-        </div>
-        <div class="whatsapp-button">[WhatsApp]</div>
-        <div class="social-icons">
-            <div class="social-icon">FB</div>
-            <div class="social-icon">IG</div>
             <p>[SSL Lock]</p>
         </div>
     </footer>
