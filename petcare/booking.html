@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Care Services - Book Appointment</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Booking form specific styles */
+        .booking-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .booking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .booking-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #eee;
+            z-index: 1;
+        }
+        
+        .step {
+            width: 30px;
+            height: 30px;
+            background-color: #eee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+            color: #888;
+        }
+        
+        .step.active {
+            background-color: #aaa;
+            color: #fff;
+        }
+        
+        .step-label {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .booking-form-step {
+            display: none;
+        }
+        
+        .booking-form-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .time-slot {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .time-slot:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .time-slot.selected {
+            background-color: #aaa;
+            color: #fff;
+            border-color: #999;
+        }
+        
+        .pet-type-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .pet-type {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .pet-type:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .pet-type.selected {
+            background-color: #f0f0f0;
+            border-color: #aaa;
+        }
+        
+        .pet-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pet-type-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .booking-steps {
+                display: none;
+            }
+            
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Radio group styling */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .radio-group label:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .radio-group input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+        
+        .radio-group input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: #444;
+        }
+        
+        .radio-group label:has(input[type="radio"]:checked) {
+            background-color: #f0f0f0;
+            border-color: #aaa;
+        }
+        
+        .radio-group span i {
+            margin-right: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo"><i class="fas fa-paw"></i> PETCARE</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="e-store.html">E-Store</a>
+            <a href="hospital.html">Hospital Facility</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <h1>Book an Appointment</h1>
+        <p>Schedule a visit for your pet with our caring professionals</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="booking-form-container">
+            <div class="booking-steps">
+                <div class="step active" id="step-1">1
+                    <span class="step-label">Service</span>
+                </div>
+                <div class="step" id="step-2">2
+                    <span class="step-label">Date & Time</span>
+                </div>
+                <div class="step" id="step-3">3
+                    <span class="step-label">Pet Info</span>
+                </div>
+                <div class="step" id="step-4">4
+                    <span class="step-label">Your Info</span>
+                </div>
+                <div class="step" id="step-5">5
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+            
+            <form id="booking-form">
+                <!-- Step 1: Service Selection -->
+                <div class="booking-form-step active" id="booking-step-1">
+                    <h2><i class="fas fa-concierge-bell"></i> Select a Service</h2>
+                    
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="service" value="veterinary-care" checked>
+                                <span><i class="fas fa-stethoscope"></i> Veterinary Care</span>
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="service" value="grooming">
+                                <span><i class="fas fa-cut"></i> Pet Grooming</span>
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="service" value="boarding">
+                                <span><i class="fas fa-home"></i> Pet Boarding</span>
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="service" value="dental">
+                                <span><i class="fas fa-tooth"></i> Dental Services</span>
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="service" value="emergency">
+                                <span><i class="fas fa-ambulance"></i> Emergency Care</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn secondary-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn primary-btn" onclick="nextStep(1)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Date and Time Selection -->
+                <div class="booking-form-step" id="booking-step-2">
+                    <h2><i class="far fa-calendar-alt"></i> Select Date and Time</h2>
+                    
+                    <div class="form-group">
+                        <label for="appointment-date"><i class="fas fa-calendar"></i> Preferred Date</label>
+                        <input type="date" id="appointment-date" class="input-field" required min="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> Available Time Slots</label>
+                        <div class="time-slots">
+                            <div class="time-slot" onclick="selectTimeSlot(this)">9:00 AM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">9:30 AM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">10:00 AM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">10:30 AM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">11:00 AM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">11:30 AM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">1:00 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">1:30 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">2:00 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">2:30 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">3:00 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">3:30 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">4:00 PM</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this)">4:30 PM</div>
+                        </div>
+                        <input type="hidden" id="selected-time" name="selected-time" required>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn secondary-btn" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn primary-btn" onclick="nextStep(2)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Pet Information -->
+                <div class="booking-form-step" id="booking-step-3">
+                    <h2><i class="fas fa-paw"></i> Pet Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="pet-name"><i class="fas fa-tag"></i> Pet's Name</label>
+                        <input type="text" id="pet-name" name="pet-name" class="input-field" placeholder="Enter your pet's name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-paw"></i> Type of Pet</label>
+                        <div class="pet-type-options">
+                            <div class="pet-type" onclick="selectPetType(this, 'dog')">
+                                <span class="pet-icon"><i class="fas fa-dog"></i></span>
+                                <span>Dog</span>
+                            </div>
+                            <div class="pet-type" onclick="selectPetType(this, 'cat')">
+                                <span class="pet-icon"><i class="fas fa-cat"></i></span>
+                                <span>Cat</span>
+                            </div>
+                            <div class="pet-type" onclick="selectPetType(this, 'bird')">
+                                <span class="pet-icon"><i class="fas fa-dove"></i></span>
+                                <span>Bird</span>
+                            </div>
+                            <div class="pet-type" onclick="selectPetType(this, 'other')">
+                                <span class="pet-icon"><i class="fas fa-paw"></i></span>
+                                <span>Other</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="pet-type" name="pet-type" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pet-breed"><i class="fas fa-dna"></i> Breed (optional)</label>
+                        <input type="text" id="pet-breed" name="pet-breed" class="input-field" placeholder="Enter your pet's breed">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pet-age"><i class="fas fa-birthday-cake"></i> Age</label>
+                        <input type="text" id="pet-age" name="pet-age" class="input-field" placeholder="Enter your pet's age" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pet-notes"><i class="fas fa-notes-medical"></i> Additional Information</label>
+                        <textarea id="pet-notes" name="pet-notes" class="textarea-field" placeholder="Any special concerns or issues your pet is experiencing?"></textarea>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn secondary-btn" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn primary-btn" onclick="nextStep(3)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Customer Information -->
+                <div class="booking-form-step" id="booking-step-4">
+                    <h2><i class="fas fa-user"></i> Your Information</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customer-name"><i class="fas fa-user"></i> Your Name</label>
+                            <input type="text" id="customer-name" name="customer-name" class="input-field" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-phone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="customer-phone" name="customer-phone" class="input-field" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customer-email"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="customer-email" name="customer-email" class="input-field" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="terms" required>
+                            <span>I agree to the <a href="#">terms and conditions</a></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn secondary-btn" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn primary-btn" onclick="nextStep(4)">Review Booking <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 5: Confirmation -->
+                <div class="booking-form-step" id="booking-step-5">
+                    <h2><i class="fas fa-clipboard-check"></i> Review Your Booking</h2>
+                    
+                    <div class="booking-summary">
+                        <div class="summary-item">
+                            <strong>Service:</strong>
+                            <span id="summary-service"></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Date:</strong>
+                            <span id="summary-date"></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Time:</strong>
+                            <span id="summary-time"></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Pet Name:</strong>
+                            <span id="summary-pet-name"></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Pet Type:</strong>
+                            <span id="summary-pet-type"></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Your Name:</strong>
+                            <span id="summary-customer-name"></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Contact:</strong>
+                            <span id="summary-contact"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn secondary-btn" onclick="prevStep(5)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="submit" class="btn primary-btn"><i class="fas fa-check-circle"></i> Confirm Booking</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Pet Care Street, City, State ZIP</p>
+                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                <p><i class="fas fa-envelope"></i> info@petcare.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <p><i class="far fa-clock"></i> Monday - Friday: 8am - 6pm</p>
+                <p><i class="far fa-clock"></i> Saturday: 9am - 4pm</p>
+                <p><i class="far fa-clock"></i> Sunday: Closed</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="social-icon"><i class="fab fa-youtube"></i></div>
+                </div>
+                <div class="whatsapp-button"><i class="fab fa-whatsapp"></i></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Pet Care Services. All rights reserved.</p>
+            <p class="admin-login"><i class="fas fa-lock"></i> [Admin Login]</p>
+            <p><i class="fas fa-blog"></i> [Blog Link]</p>
+            <p><i class="fas fa-shield-alt"></i> [SSL Lock]</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Direct menu fix
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    mobileMenuToggle.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    console.log('Menu toggled');
+                });
+                
+                // Close menu when clicking on links
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+            
+            // Set minimum date to today
+            const dateInput = document.getElementById('appointment-date');
+            if (dateInput) {
+                const today = new Date();
+                let dd = today.getDate();
+                let mm = today.getMonth() + 1;
+                const yyyy = today.getFullYear();
+                
+                if (dd < 10) dd = '0' + dd;
+                if (mm < 10) mm = '0' + mm;
+                
+                const todayStr = yyyy + '-' + mm + '-' + dd;
+                dateInput.setAttribute('min', todayStr);
+                dateInput.value = todayStr;
+            }
+            
+            // Initialize booking form
+            const bookingForm = document.getElementById('booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    // In a real application, this would submit the form data to the server
+                    // For this demo, we'll show a success message
+                    alert('Your appointment has been scheduled! A confirmation email will be sent to you shortly.');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+        
+        // Booking form step navigation
+        function nextStep(currentStep) {
+            const currentStepEl = document.getElementById('booking-step-' + currentStep);
+            const nextStepEl = document.getElementById('booking-step-' + (currentStep + 1));
+            const currentStepIndicator = document.getElementById('step-' + currentStep);
+            const nextStepIndicator = document.getElementById('step-' + (currentStep + 1));
+            
+            // Basic validation
+            if (currentStep === 1) {
+                // Service validation - one option should be selected by default
+            } else if (currentStep === 2) {
+                const date = document.getElementById('appointment-date').value;
+                const time = document.getElementById('selected-time').value;
+                
+                if (!date || !time) {
+                    alert('Please select both a date and time slot.');
+                    return;
+                }
+            } else if (currentStep === 3) {
+                const petName = document.getElementById('pet-name').value;
+                const petType = document.getElementById('pet-type').value;
+                const petAge = document.getElementById('pet-age').value;
+                
+                if (!petName || !petType || !petAge) {
+                    alert('Please fill in all required fields about your pet.');
+                    return;
+                }
+            } else if (currentStep === 4) {
+                const customerName = document.getElementById('customer-name').value;
+                const customerPhone = document.getElementById('customer-phone').value;
+                const customerEmail = document.getElementById('customer-email').value;
+                const termsChecked = document.querySelector('input[name="terms"]').checked;
+                
+                if (!customerName || !customerPhone || !customerEmail) {
+                    alert('Please fill in all required fields about yourself.');
+                    return;
+                }
+                
+                if (!termsChecked) {
+                    alert('Please agree to the terms and conditions.');
+                    return;
+                }
+                
+                // Update summary
+                updateSummary();
+            }
+            
+            currentStepEl.classList.remove('active');
+            nextStepEl.classList.add('active');
+            
+            currentStepIndicator.classList.remove('active');
+            nextStepIndicator.classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function prevStep(currentStep) {
+            const currentStepEl = document.getElementById('booking-step-' + currentStep);
+            const prevStepEl = document.getElementById('booking-step-' + (currentStep - 1));
+            const currentStepIndicator = document.getElementById('step-' + currentStep);
+            const prevStepIndicator = document.getElementById('step-' + (currentStep - 1));
+            
+            currentStepEl.classList.remove('active');
+            prevStepEl.classList.add('active');
+            
+            currentStepIndicator.classList.remove('active');
+            prevStepIndicator.classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function selectTimeSlot(slot) {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            timeSlots.forEach(s => s.classList.remove('selected'));
+            
+            slot.classList.add('selected');
+            document.getElementById('selected-time').value = slot.textContent;
+        }
+        
+        function selectPetType(element, type) {
+            const petTypes = document.querySelectorAll('.pet-type');
+            petTypes.forEach(pt => pt.classList.remove('selected'));
+            
+            element.classList.add('selected');
+            document.getElementById('pet-type').value = type;
+        }
+        
+        function updateSummary() {
+            // Get service
+            const serviceInput = document.querySelector('input[name="service"]:checked');
+            let serviceName = 'Veterinary Care';
+            if (serviceInput) {
+                const serviceValue = serviceInput.value;
+                if (serviceValue === 'grooming') serviceName = 'Pet Grooming';
+                if (serviceValue === 'boarding') serviceName = 'Pet Boarding';
+                if (serviceValue === 'dental') serviceName = 'Dental Services';
+                if (serviceValue === 'emergency') serviceName = 'Emergency Care';
+            }
+            document.getElementById('summary-service').textContent = serviceName;
+            
+            // Get date and time
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('selected-time').value;
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            document.getElementById('summary-date').textContent = formattedDate;
+            document.getElementById('summary-time').textContent = time;
+            
+            // Get pet info
+            document.getElementById('summary-pet-name').textContent = document.getElementById('pet-name').value;
+            
+            const petType = document.getElementById('pet-type').value;
+            let petTypeDisplay = 'Dog';
+            if (petType === 'cat') petTypeDisplay = 'Cat';
+            if (petType === 'bird') petTypeDisplay = 'Bird';
+            if (petType === 'other') petTypeDisplay = 'Other';
+            
+            document.getElementById('summary-pet-type').textContent = petTypeDisplay;
+            
+            // Get customer info
+            document.getElementById('summary-customer-name').textContent = document.getElementById('customer-name').value;
+            
+            const phone = document.getElementById('customer-phone').value;
+            const email = document.getElementById('customer-email').value;
+            document.getElementById('summary-contact').textContent = `${phone} / ${email}`;
+        }
+    </script>
+</body>
+</html> 
