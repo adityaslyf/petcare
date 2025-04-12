@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addAnimations();
     initActiveNavLinks();
     addScrollEffects();
+    initMobileMenu();
 });
 
 // Initialize tabs functionality
@@ -89,6 +90,48 @@ function addScrollEffects() {
         
         lastScrollTop = scrollTop;
     });
+}
+
+// Initialize mobile menu functionality
+function initMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (mobileMenuToggle && navMenu) {
+        // Add click event directly to the toggle button
+        mobileMenuToggle.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the event from bubbling up
+            mobileMenuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Close menu when clicking outside, but check if menu is actually active first
+        document.addEventListener('click', function(event) {
+            if (navMenu.classList.contains('active') && 
+                !navMenu.contains(event.target) && 
+                !mobileMenuToggle.contains(event.target)) {
+                mobileMenuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // Debug message to ensure function runs
+    console.log('Mobile menu initialized');
 }
 
 // Interactive hover effects for service icons

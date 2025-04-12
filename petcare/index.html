@@ -12,7 +12,12 @@
     <!-- Header -->
     <header>
         <div class="logo"><i class="fas fa-paw"></i> PETCARE</div>
-        <nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav-menu">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
             <a href="e-store.html">E-Store</a>
@@ -135,5 +140,30 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // Direct menu fix
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    mobileMenuToggle.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    console.log('Menu toggled');
+                });
+                
+                // Close menu when clicking on links
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
