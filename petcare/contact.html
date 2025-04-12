@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[Meta Title] Pet Care Services - Contact Us</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="logo">LOGO</div>
+        <div class="logo"><i class="fas fa-paw"></i> PETCARE</div>
         <nav>
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
@@ -31,7 +33,7 @@
             <div class="contact-info-block">
                 <h2>Get In Touch</h2>
                 <div class="contact-method">
-                    <div class="contact-icon">📍</div>
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div class="contact-details">
                         <h3>Visit Us</h3>
                         <p>123 Pet Care Street</p>
@@ -40,7 +42,7 @@
                 </div>
                 
                 <div class="contact-method">
-                    <div class="contact-icon">📞</div>
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                     <div class="contact-details">
                         <h3>Call Us</h3>
                         <p>(123) 456-7890</p>
@@ -49,7 +51,7 @@
                 </div>
                 
                 <div class="contact-method">
-                    <div class="contact-icon">✉️</div>
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <div class="contact-details">
                         <h3>Email Us</h3>
                         <p>info@petcare.com</p>
@@ -58,8 +60,8 @@
                 </div>
                 
                 <div class="contact-chat">
-                    <h3>Chat with us directly!</h3>
-                    <a href="#" class="whatsapp-contact">[WhatsApp] Chat on WhatsApp</a>
+                    <h3><i class="fab fa-whatsapp"></i> Chat with us directly!</h3>
+                    <a href="#" class="whatsapp-contact"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
                 </div>
             </div>
             
@@ -68,28 +70,28 @@
                 <form class="contact-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" class="input-field" placeholder="John Doe">
+                            <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                            <input type="text" id="name" class="input-field" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
-                            <label for="pet-name">Pet's Name</label>
+                            <label for="pet-name"><i class="fas fa-paw"></i> Pet's Name</label>
                             <input type="text" id="pet-name" class="input-field" placeholder="Buddy">
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" class="input-field" placeholder="john@example.com">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" class="input-field" placeholder="john@example.com" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" class="input-field" placeholder="(123) 456-7890">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="phone" class="input-field" placeholder="(123) 456-7890" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="service">Service Interested In</label>
+                        <label for="service"><i class="fas fa-concierge-bell"></i> Service Interested In</label>
                         <select id="service" class="input-field">
                             <option value="" disabled selected>Select a service</option>
                             <option value="vet-care">Veterinary Care</option>
@@ -100,30 +102,33 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" class="textarea-field" placeholder="Tell us how we can help..."></textarea>
+                        <label for="message"><i class="fas fa-comment"></i> Your Message</label>
+                        <textarea id="message" class="textarea-field" placeholder="Tell us how we can help..." required></textarea>
                     </div>
                     
-                    <button type="submit" class="btn primary-btn">[Admin Alert] Submit Message</button>
+                    <button type="submit" class="btn primary-btn"><i class="fas fa-paper-plane"></i> Submit Message</button>
                     
-                    <p class="gdpr-note">[GDPR Note] Your information will be stored securely and used only for responding to your inquiry.</p>
+                    <p class="gdpr-note"><i class="fas fa-shield-alt"></i> [GDPR Note] Your information will be stored securely and used only for responding to your inquiry.</p>
                 </form>
             </div>
         </div>
         
         <div class="map-section">
-            <h2>Find Us</h2>
+            <h2><i class="fas fa-map-marked-alt"></i> Find Us</h2>
             <div class="map">
                 [Google Maps Embed]
+                <div class="map-overlay">
+                    <span class="map-tooltip">Interactive Map</span>
+                </div>
             </div>
         </div>
         
         <div class="emergency-contact">
-            <div class="emergency-icon">🚨</div>
+            <div class="emergency-icon"><i class="fas fa-ambulance"></i></div>
             <div class="emergency-details">
                 <h3>Pet Emergency?</h3>
                 <p>Call our 24/7 emergency line: <strong>(123) 555-9999</strong></p>
-                <a href="#" class="btn secondary-btn">Emergency Care Info</a>
+                <a href="#" class="btn secondary-btn"><i class="fas fa-first-aid"></i> Emergency Care Info</a>
             </div>
         </div>
         
@@ -135,32 +140,34 @@
         <div class="footer-sections">
             <div class="footer-section">
                 <h3>Contact Us</h3>
-                <p>123 Pet Care Street, City, State ZIP</p>
-                <p>Phone: (123) 456-7890</p>
-                <p>Email: info@petcare.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Pet Care Street, City, State ZIP</p>
+                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                <p><i class="fas fa-envelope"></i> info@petcare.com</p>
             </div>
             <div class="footer-section">
                 <h3>Hours</h3>
-                <p>Monday - Friday: 8am - 6pm</p>
-                <p>Saturday: 9am - 4pm</p>
-                <p>Sunday: Closed</p>
+                <p><i class="far fa-clock"></i> Monday - Friday: 8am - 6pm</p>
+                <p><i class="far fa-clock"></i> Saturday: 9am - 4pm</p>
+                <p><i class="far fa-clock"></i> Sunday: Closed</p>
             </div>
             <div class="footer-section">
                 <h3>Connect</h3>
                 <div class="social-icons">
-                    <div class="social-icon">FB</div>
-                    <div class="social-icon">IG</div>
-                    <div class="social-icon">YT</div>
+                    <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="social-icon"><i class="fab fa-youtube"></i></div>
                 </div>
-                <div class="whatsapp-button">[WhatsApp]</div>
+                <div class="whatsapp-button"><i class="fab fa-whatsapp"></i></div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2023 Pet Care Services. All rights reserved.</p>
-            <p class="admin-login">[Admin Login]</p>
-            <p>[Blog Link]</p>
-            <p>[SSL Lock]</p>
+            <p class="admin-login"><i class="fas fa-lock"></i> [Admin Login]</p>
+            <p><i class="fas fa-blog"></i> [Blog Link]</p>
+            <p><i class="fas fa-shield-alt"></i> [SSL Lock]</p>
         </div>
     </footer>
+    
+    <script src="js/script.js"></script>
 </body>
 </html>
